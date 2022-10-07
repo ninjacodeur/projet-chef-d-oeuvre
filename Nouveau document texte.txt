@@ -1,0 +1,46 @@
+ <?php
+
+
+try {
+   $conn = new PDO("mysql:host=$servername;dbname=book_db", 'root', 'root');
+   // set the PDO error mode to exception
+   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   echo "Connected successfully";
+ } catch(PDOException $e) {
+   echo "Connection failed: " . $e->getMessage();
+ }
+
+
+
+
+
+
+   //$connection = mysqli_connect('localhost','root','','book_db');
+
+   if(isset($_POST['send'])){
+      // echo"send";
+      $name = $_POST['name'];
+      $email = $_POST['email'];
+      $phone = $_POST['phone'];
+      $address = $_POST['address'];
+      $location = $_POST['location'];
+      $guests = $_POST['guests'];
+      $arrivals = $_POST['arrivals'];
+      $leaving = $_POST['leaving'];
+      // echo $leaving; 
+
+      $request = "INSERT INTO `book_form` (`name`, `email`, `phone`, `address`, `location`, `guests`, `arrivals`, `leaving`) VALUES
+      ($name, $email, $phone, $address, $location,$guests,$arrivals, $leaving)";
+
+//Prepare statement
+$stmt = $conn->prepare($request);
+
+// Execute query
+$stmt->execute();
+      //header('location:book.php'); 
+
+   }else{
+      echo 'something went wrong please try again!';
+   }
+
+?>
